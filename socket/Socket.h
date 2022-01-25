@@ -27,7 +27,7 @@ public:
     void attachToPort();
 
     // set address configuration
-    void setAddressConfiguration();
+    void setAddressConfiguration(int addressFamily = AF_INET, uint32_t sAddr = INADDR_ANY);
 
     // bind socket
     void bindSocket();
@@ -67,16 +67,16 @@ void Socket::attachToPort()
     if ((setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))))
     {
         #ifdef DEBUG
-            printf("Failed to bind socket to port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+            printf("Failed to attach socket to port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
         #endif
         exit(EXIT_FAILURE);
     }
 }
 
-void Socket::setAddressConfiguration()
+void Socket::setAddressConfiguration(int addressFamily, uint32_t sAddr)
 {
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_family = addressFamily;
+    address.sin_addr.s_addr = sAddr;
     address.sin_port = htons(PORT);
 }
 
@@ -116,6 +116,7 @@ void Socket::acceptNewSocket()
     printf("buffer recieved: %s", buffer);
 
     send(new_socket, message, strlen(message), 0);
+
     #ifdef DEBUG
         printf("Message Sent!");
     #endif
