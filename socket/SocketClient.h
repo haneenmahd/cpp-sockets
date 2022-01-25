@@ -15,7 +15,6 @@ private:
     char buffer[1024];
 public:
     SocketClient(int _PORT, const char* _message);
-    ~SocketClient();
 
     // setup the address configuration structure
     void setAddressConfiguration();
@@ -33,13 +32,6 @@ SocketClient::SocketClient(int _PORT, const char* _message)
         printf("\n Client Side Socket creation failed. \n");
         exit(EXIT_FAILURE);
     }
-}
-
-SocketClient::~SocketClient()
-{
-    PORT = 3003;
-    printf("Warning: Moving PORT address to 3003\n");
-    message = "Hey there 👋, this is the sample message that will be sent from the client to the server";
 }
 
 void SocketClient::setAddressConfiguration()
