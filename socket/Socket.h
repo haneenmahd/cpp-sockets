@@ -26,7 +26,11 @@ private:
     // bind socket
     void bindSocket();
 public:
+    // socket initializer
     Socket(int _PORT, const char* message);
+
+    // init socket
+    int initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM);
 
     // starts listening on the port specified
     void listenSocket();
@@ -40,21 +44,26 @@ Socket::Socket(int _PORT, const char* _message)
     PORT = _PORT;
     message = _message;
 
+    initSocket();
+
     // setting default values
     opt = 1;
     addrlen = sizeof(address);
 
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
-    {
-        #ifdef DEBUG
-            printf("Failed to create socket, occured in file: %s, line: %d\n", __FILE__, __LINE__);
-        #endif
-        exit(EXIT_FAILURE);
-    }
-
     attachToPort();
     setAddressConfiguration();
     bindSocket();
+}
+
+int Socket::initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM)
+{
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+    {
+#ifdef DEBUG
+        printf("Failed to create socket, occured in file: %s, line: %d\n", __FILE__, __LINE__);
+#endif
+        exit(EXIT_FAILURE);
+    }
 }
 
 void Socket::attachToPort() 
