@@ -60,7 +60,7 @@ int Socket::initSocket(int addressFamily, int socketType)
 #ifdef DEBUG
         printf("Failed to create socket, occured in file: %s, line: %d\n", __FILE__, __LINE__);
 #endif
-        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
