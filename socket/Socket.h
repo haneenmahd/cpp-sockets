@@ -46,7 +46,9 @@ Socket::Socket(int _PORT, const char* _message)
 
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
-        printf("Failed to create socket, occured in file: %s, line: %d\n", __FILE__, __LINE__);
+        #ifdef DEBUG
+            printf("Failed to create socket, occured in file: %s, line: %d\n", __FILE__, __LINE__);
+        #endif
         exit(EXIT_FAILURE);
     }
 
@@ -59,7 +61,9 @@ void Socket::attachToPort()
 {
     if ((setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))))
     {
-        printf("Failed to bind socket to port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #ifdef DEBUG
+            printf("Failed to bind socket to port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #endif
         exit(EXIT_FAILURE);
     }
 }
@@ -75,7 +79,9 @@ void Socket::bindSocket()
 {
     if ((bind(server_fd, (struct sockaddr *)&address, sizeof(address))) < 0)
     {
-        printf("Failed to bind socket on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #ifdef DEBUG
+            printf("Failed to bind socket on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #endif
         exit(EXIT_FAILURE);
     }
 }
@@ -84,7 +90,9 @@ void Socket::listenSocket()
 {
     if (listen(server_fd, 3) < 0)
     {
-        printf("Failed to listen on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #ifdef DEBUG
+            printf("Failed to listen on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #endif
         exit(EXIT_FAILURE);
     }
 }
@@ -93,7 +101,9 @@ void Socket::acceptNewSocket()
 {
     if ((new_socket = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen)) < 0)
     {
-        printf("Failed to accept new socket connections on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #ifdef DEBUG
+            printf("Failed to accept new socket connections on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
+        #endif
         exit(EXIT_FAILURE);
     }
     
@@ -101,5 +111,7 @@ void Socket::acceptNewSocket()
     printf("buffer recieved: %s", buffer);
 
     send(new_socket, message, strlen(message), 0);
-    printf("Message Sent");
+    #ifdef DEBUG
+        printf("Message Sent!");
+    #endif
 }
