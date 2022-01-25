@@ -53,9 +53,9 @@ Socket::Socket(int _PORT, const char* _message)
     bindSocket();
 }
 
-int Socket::initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM)
+int Socket::initSocket(int addressFamily, int socketType)
 {
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+    if ((server_fd = socket(addressFamily, socketType, 0)) == 0)
     {
 #ifdef DEBUG
         printf("Failed to create socket, occured in file: %s, line: %d\n", __FILE__, __LINE__);
