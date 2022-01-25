@@ -16,6 +16,12 @@ private:
     int addrlen;
     char buffer[1024];
     const char* message;
+public:
+    // socket initializer
+    Socket(int _PORT, const char* message);
+
+    // init socket
+    int initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM);
 
     // attaches to the port specified in the paramters
     void attachToPort();
@@ -25,12 +31,6 @@ private:
 
     // bind socket
     void bindSocket();
-public:
-    // socket initializer
-    Socket(int _PORT, const char* message);
-
-    // init socket
-    int initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM);
 
     // starts listening on the port specified
     void listenSocket();
@@ -47,10 +47,6 @@ Socket::Socket(int _PORT, const char* _message)
     // setting default values
     opt = 1;
     addrlen = sizeof(address);
-
-    attachToPort();
-    setAddressConfiguration();
-    bindSocket();
 }
 
 int Socket::initSocket(int addressFamily, int socketType)
