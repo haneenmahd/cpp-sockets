@@ -62,6 +62,8 @@ int Socket::initSocket(int addressFamily, int socketType)
 #endif
         exit(EXIT_FAILURE);
     }
+
+    return EXIT_SUCCESS;
 }
 
 void Socket::attachToPort() 
