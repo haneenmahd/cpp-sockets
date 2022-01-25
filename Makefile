@@ -3,8 +3,8 @@ all:
 	make test
 
 build:
-	clang++ tests/server.cpp -o server.out
-	clang++ tests/client.cpp -o client.out
+	clang++ tests/server.cpp -Isocket -o server.out
+	clang++ tests/client.cpp -Isocket -o client.out
 
 test:
 	./server.out
