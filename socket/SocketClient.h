@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 
+// Object oriented implementation of Client-Side Socket
 class SocketClient
 {
 private:
