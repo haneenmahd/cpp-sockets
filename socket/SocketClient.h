@@ -30,7 +30,9 @@ SocketClient::SocketClient(int _PORT, const char* _message)
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
+        #ifdef DEBUG
         printf("\n Client Side Socket creation failed. \n");
+        #endif
         exit(EXIT_FAILURE);
     }
 }
@@ -42,7 +44,9 @@ void SocketClient::setAddressConfiguration()
 
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
     {
+        #ifdef DEBUG
         printf("\nInvalid address || Address not supported \n");
+        #endif
         exit(EXIT_FAILURE);
     }
 }
@@ -50,7 +54,9 @@ void SocketClient::setAddressConfiguration()
 void SocketClient::connectSocket() {
     if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)))
     {
+        #ifdef DEBUG
         printf("\n Connection Failed \n");
+        #endif
         exit(EXIT_FAILURE);
     }
     
