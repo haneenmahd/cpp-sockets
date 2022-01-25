@@ -44,8 +44,6 @@ Socket::Socket(int _PORT, const char* _message)
     PORT = _PORT;
     message = _message;
 
-    initSocket();
-
     // setting default values
     opt = 1;
     addrlen = sizeof(address);
