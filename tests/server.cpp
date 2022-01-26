@@ -1,3 +1,4 @@
+#define DEBUG
 #include <iostream>
 #include "Socket.h"
 
