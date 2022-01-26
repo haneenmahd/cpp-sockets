@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
@@ -64,5 +63,5 @@ void SocketClient::connectSocket() {
 
     printf("Message sent\n");
     valread = read(sock, (void*)buffer.c_str(), 1024);
-    printf("%s\n", buffer);
+    printf("%s\n", buffer.c_str());
 }
