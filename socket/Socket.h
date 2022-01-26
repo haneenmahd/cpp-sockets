@@ -113,7 +113,7 @@ void Socket::acceptNewSocket()
     }
     
     valread = read(new_socket, buffer, 1024);
-    printf("buffer recieved: %s", buffer);
+    printf("buffer recieved: %s\n", buffer);
 
     send(new_socket, message, strlen(message), 0);
 
