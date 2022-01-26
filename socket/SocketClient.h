@@ -14,7 +14,7 @@ private:
     std::string buffer;
     std::string message;
 public:
-    SocketClient(int _PORT, const char* _message);
+    SocketClient(int _PORT, std::string _message);
 
     // setup the address configuration structure
     void setAddressConfiguration();
@@ -22,7 +22,7 @@ public:
     void connectSocket();
 };
 
-SocketClient::SocketClient(int _PORT, const char* _message)
+SocketClient::SocketClient(int _PORT, std::string _message)
 {
     PORT = _PORT;
     message = _message;
