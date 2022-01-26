@@ -2,6 +2,7 @@
   "files.associations": {
     "stdio.h": "c",
     "stdlib.h": "c",
-    "in.h": "c"
+    "in.h": "c",
+    "__config": "c"
   }
 }
