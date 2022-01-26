@@ -3,7 +3,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <string.h>
+#include <string>
 
 // Object oriented implementation of Client-Side Socket
 class SocketClient
@@ -12,8 +12,8 @@ private:
     int PORT;
     int sock, valread;
     struct sockaddr_in serv_addr;
-    const char* message;
-    char buffer[1024];
+    std::string buffer;
+    std::string message;
 public:
     SocketClient(int _PORT, const char* _message);
 
@@ -60,9 +60,9 @@ void SocketClient::connectSocket() {
         exit(EXIT_FAILURE);
     }
     
-    send(sock, message, strlen(message), 0);
+    send(sock, message.c_str(), message.length(), 0);
 
     printf("Message sent\n");
-    valread = read(sock, buffer, 1024);
+    valread = read(sock, (void*)buffer.c_str(), 1024);
     printf("%s\n", buffer);
 }
