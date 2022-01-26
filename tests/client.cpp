@@ -4,7 +4,7 @@
 
 int main()
 {
-    SocketClient socket(8080, "Hello World");
+    SocketClient socket(3031, "Hello World");
 
     socket.setAddressConfiguration();
     socket.connectSocket();

@@ -4,7 +4,7 @@
 
 int main()
 {
-    Socket socket(8080, "Hello World");
+    Socket socket(3031, "Hello World");
 
     socket.initSocket();
 
@@ -14,6 +14,7 @@ int main()
 
     socket.listenSocket();
     socket.acceptNewSocket();
+    sleep(1);
 
     return 0;
 }
