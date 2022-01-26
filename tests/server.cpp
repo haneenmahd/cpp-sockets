@@ -14,7 +14,6 @@ int main()
 
     socket.listenSocket();
     socket.acceptNewSocket();
-    sleep(1);
 
     return 0;
 }
