@@ -3,7 +3,7 @@
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
-#include <string.h>
+#include <string>
 
 // the objected-oriented implementation of socket programming
 class Socket
@@ -14,11 +14,11 @@ private:
     struct sockaddr_in address;
     int opt;
     int addrlen;
-    char buffer[1024];
-    const char* message;
+    std::string buffer;
+    std::string message;
 public:
     // socket initializer
-    Socket(int _PORT, const char* message);
+    Socket(int _PORT, std::string message);
 
     // init socket
     int initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM);
@@ -39,7 +39,7 @@ public:
     void acceptNewSocket();
 };
 
-Socket::Socket(int _PORT, const char* _message)
+Socket::Socket(int _PORT, std::string _message)
 {
     PORT = _PORT;
     message = _message;
@@ -112,10 +112,10 @@ void Socket::acceptNewSocket()
         exit(EXIT_FAILURE);
     }
     
-    valread = read(new_socket, buffer, 1024);
-    printf("buffer recieved: %s\n", buffer);
+    valread = read(new_socket, (void*)buffer.c_str(), 1024);
+    printf("buffer recieved: %s\n", buffer.c_str());
 
-    send(new_socket, message, strlen(message), 0);
+    send(new_socket, message.c_str(), message.length(), 0);
 
     #ifdef DEBUG
         printf("Message Sent!");
