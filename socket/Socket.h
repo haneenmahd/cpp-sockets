@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
 #include <string>
 
 // the objected-oriented implementation of socket programming
@@ -119,4 +121,68 @@ void Socket::acceptNewSocket()
     #ifdef DEBUG
         std::cout << "Message Sent: " << &buffer << std::endl;
     #endif
+}
+
+// Object oriented implementation of Client-Side Socket
+class SocketClient
+{
+private:
+    int PORT;
+    int sock, valread;
+    struct sockaddr_in serv_addr;
+    std::string buffer;
+    std::string message;
+
+public:
+    SocketClient(int _PORT, std::string _message);
+
+    // setup the address configuration structure
+    void setAddressConfiguration();
+    // connect
+    void connectSocket();
+};
+
+SocketClient::SocketClient(int _PORT, std::string _message)
+{
+    PORT = _PORT;
+    message = _message;
+
+    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+#ifdef DEBUG
+        printf("\n Client Side Socket creation failed. \n");
+#endif
+        exit(EXIT_FAILURE);
+    }
+}
+
+void SocketClient::setAddressConfiguration()
+{
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(PORT);
+
+    if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
+    {
+#ifdef DEBUG
+        printf("\nInvalid address || Address not supported \n");
+#endif
+        exit(EXIT_FAILURE);
+    }
+}
+
+void SocketClient::connectSocket()
+{
+    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)))
+    {
+#ifdef DEBUG
+        printf("\n Connection Failed \n");
+#endif
+        exit(EXIT_FAILURE);
+    }
+
+    send(sock, message.c_str(), message.length(), 0);
+
+    printf("Message sent\n");
+    valread = read(sock, (void *)buffer.c_str(), 1024);
+    printf("%s\n", buffer.c_str());
 }
