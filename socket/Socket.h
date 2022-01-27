@@ -33,9 +33,7 @@ public:
     {
         if ((server_fd = socket(addressFamily, socketType, 0)) == 0)
         {
-#ifdef DEBUG
             std::cout << "Failed to create socket, occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
-#endif
             return EXIT_FAILURE;
         }
 
@@ -47,9 +45,7 @@ public:
     {
         if ((setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))))
         {
-#ifdef DEBUG
             std::cout << "Failed to attach socket to port" << PORT << ", occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
-#endif
             exit(EXIT_FAILURE);
         }
     }
@@ -67,9 +63,7 @@ public:
     {
         if ((bind(server_fd, (struct sockaddr *)&address, sizeof(address))) < 0)
         {
-#ifdef DEBUG
             printf("Failed to bind socket on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
-#endif
             exit(EXIT_FAILURE);
         }
     }
@@ -79,9 +73,7 @@ public:
     {
         if (listen(server_fd, 3) < 0)
         {
-#ifdef DEBUG
             std::cout << "Failed to listen socket to port" << PORT << ", occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
-#endif
             exit(EXIT_FAILURE);
         }
     }
@@ -91,9 +83,7 @@ public:
     {
         if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen)) < 0)
         {
-#ifdef DEBUG
             std::cout << "Failed to accept new socket to port" << PORT << ", occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
-#endif
             exit(EXIT_FAILURE);
         }
 
@@ -102,9 +92,7 @@ public:
 
         send(new_socket, message.c_str(), message.length(), 0);
 
-#ifdef DEBUG
         std::cout << "Message Sent: " << &buffer << std::endl;
-#endif
     }
 };
 
@@ -126,9 +114,7 @@ public:
 
         if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         {
-#ifdef DEBUG
             printf("\n Client Side Socket creation failed. \n");
-#endif
             exit(EXIT_FAILURE);
         }
     }
@@ -141,9 +127,7 @@ public:
 
         if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
         {
-#ifdef DEBUG
             printf("\nInvalid address || Address not supported \n");
-#endif
             exit(EXIT_FAILURE);
         }
     }
@@ -152,9 +136,7 @@ public:
     {
         if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)))
         {
-#ifdef DEBUG
             printf("\n Connection Failed \n");
-#endif
             exit(EXIT_FAILURE);
         }
 
