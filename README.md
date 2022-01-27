@@ -1,5 +1,10 @@
-# cpp-sockets
+# cpp-sockets 👽
 Object Oriented Implementation of Unix Sockets
+
+# Installataion
+Download and move the `Socket.h` and `SocketClient.h` to your project's include directory.
+
+You are ready to go 🚀!
 
 # Usage
 There are 2 Main Objects defined in this package.
