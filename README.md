@@ -23,5 +23,21 @@ int main()
 
     socket.listenSocket(); // listens for socket on the port specified
     socket.acceptNewSocket(); // accepts new connections
+
+    return 0;
+}
+```
+
+Example Client side
+```cpp
+#include "SocketClient.h"
+
+int main()
+{
+    SocketClient socket(3031, "Hello World");
+
+    socket.setAddressConfiguration(); // setup the address configuration
+    socket.connectSocket(); // connects to the socket
+    return 0;
 }
 ```
