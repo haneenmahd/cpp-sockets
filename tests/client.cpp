@@ -1,6 +1,6 @@
 #define DEBUG
 #include <iostream>
-#include "SocketClient.h"
+#include "Socket.h"
 
 int main()
 {
