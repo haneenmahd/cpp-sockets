@@ -26,7 +26,7 @@ private:
     std::string buffer;
     std::string message;
 public:
-    SocketStatus status = UNINITIALIZED;
+    SocketStatus status;
 
     // socket initializer
     Socket(int _PORT, std::string _message) {
@@ -36,6 +36,9 @@ public:
         // setting default values
         opt = 1;
         addrlen = sizeof(address);
+
+        // set deafault value
+        status = UNINITIALIZED;
     };
 
     // init socket
