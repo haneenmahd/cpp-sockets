@@ -6,6 +6,14 @@
 #include <netdb.h>
 #include <string>
 
+typedef enum
+{
+    ALIVE,
+    DEAD,
+    UNINITIALIZED,
+    INITIALISED
+} SocketStatus;
+
 // the objected-oriented implementation of socket programming
 class Socket
 {
@@ -18,6 +26,8 @@ private:
     std::string buffer;
     std::string message;
 public:
+    SocketStatus status = UNINITIALIZED;
+
     // socket initializer
     Socket(int _PORT, std::string _message) {
         PORT = _PORT;
@@ -36,6 +46,9 @@ public:
             std::cout << "Failed to create socket, occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
             return EXIT_FAILURE;
         }
+
+        // set socket status
+        status = INITIALISED;
 
         return EXIT_SUCCESS;
     }
@@ -87,6 +100,9 @@ public:
             exit(EXIT_FAILURE);
         }
 
+        // set socket status
+        status = ALIVE;
+
         valread = read(new_socket, (void *)buffer.c_str(), 1024);
         std::cout << "Buffer recieved: " << buffer.c_str() << std::endl;
 
@@ -104,7 +120,9 @@ public:
         {
             this->acceptNewSocket();
         }
-        
+
+        // set socket status
+        status = DEAD; // socket is always dead after the termination of the forever loop
     }
 };
 
