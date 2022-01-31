@@ -94,6 +94,18 @@ public:
 
         std::cout << "Message Sent: " << &buffer << std::endl;
     }
+
+    /**
+     * @brief Starts up the server and stays alive forever until the program is then finally terminated
+     * 
+     */
+    void listenAndStayAlive() {
+        while (true)
+        {
+            this->acceptNewSocket();
+        }
+        
+    }
 };
 
 // Object oriented implementation of Client-Side Socket
