@@ -99,7 +99,7 @@ public:
      * @brief Starts up the server and stays alive forever until the program is then finally terminated
      * 
      */
-    void listenAndStayAlive() {
+    void stayAlive() {
         while (true)
         {
             this->acceptNewSocket();
