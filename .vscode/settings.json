@@ -5,6 +5,7 @@
     "in.h": "c",
     "__config": "c",
     "string": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "iosfwd": "cpp"
   }
 }
