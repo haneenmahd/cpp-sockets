@@ -6,6 +6,12 @@
 #include <netdb.h>
 #include <string>
 
+/// Socket status is defined to debug any errors inside the socket, and it emits the status of the socket
+///  These are the defenitions of specific cases that will occur inisde socket status.
+///  0 - ALIVE - The socket is live on a specific port, without any errors
+///  1 - DEAD - The socket is killed or terminated by the process
+///  2 - UNINITALISED - The socket is not initialized or attached or binded to a specific port
+///  3 - INITIALISED - The socket is attached or binded to a specific port
 typedef enum
 {
     ALIVE,
@@ -25,11 +31,13 @@ private:
     int addrlen;
     std::string buffer;
     std::string message;
+
 public:
     SocketStatus status;
 
     // socket initializer
-    Socket(int _PORT, std::string _message) {
+    Socket(int _PORT, std::string _message)
+    {
         PORT = _PORT;
         message = _message;
 
@@ -118,7 +126,8 @@ public:
      * @brief Starts up the server and stays alive forever until the program is then finally terminated
      * 
      */
-    void stayAlive() {
+    void stayAlive()
+    {
         while (true)
         {
             this->acceptNewSocket();
