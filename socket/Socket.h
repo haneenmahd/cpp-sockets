@@ -20,7 +20,12 @@ typedef enum
     INITIALISED
 } SocketStatus;
 
-// the objected-oriented implementation of socket programming
+/**
+     * @brief Construct a new Socket object
+     * Warning ⚠️: This does not initialize a socket, you need to do it manually by calling .initSocket() on your Socket object.
+     * @param _PORT port to host the server, this port should be used by the client in-order to connect to this specific socket
+     * @param _message Message the client will recieve
+     */
 class Socket
 {
 private:
@@ -35,7 +40,12 @@ private:
 public:
     SocketStatus status;
 
-    // socket initializer
+    /**
+     * @brief Construct a new Socket object
+     * Warning ⚠️: This does not initialize a socket, you need to do it manually by calling `.initSocket()` on your Socket object.
+     * @param _PORT port to host the server, this port should be used by the client in-order to connect to this specific socket
+     * @param _message Message the client will recieve
+     */
     Socket(int _PORT, std::string _message)
     {
         PORT = _PORT;
@@ -49,7 +59,13 @@ public:
         status = UNINITIALIZED;
     };
 
-    // init socket
+    /**
+     * @brief Initializes the socket, sets the address family and socket type
+     * 
+     * @param addressFamily The Address Family that the socket should use
+     * @param socketType The type of socket, most used: SOCK_STREAM, SOCK_DGRAM, SOCK_RAW
+     * @return int 
+     */
     int initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM)
     {
         if ((server_fd = socket(addressFamily, socketType, 0)) == 0)
@@ -64,7 +80,10 @@ public:
         return EXIT_SUCCESS;
     }
 
-    // attaches to the port specified in the paramters
+    /**
+     * @brief Attaches a socket to the port specified in the constructor
+     * Uses SOL_SOCKET, SO_REUSEADDR
+     */
     void attachToPort()
     {
         if ((setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))))
@@ -74,7 +93,12 @@ public:
         }
     }
 
-    // set address configuration
+    /**
+     * @brief Set the Address Configuration Structure
+     * 
+     * @param addressFamily Address family that should be set to the sockaddr structure
+     * @param sAddr ip address
+     */
     void setAddressConfiguration(int addressFamily = AF_INET, uint32_t sAddr = INADDR_ANY)
     {
         address.sin_family = addressFamily;
@@ -82,7 +106,9 @@ public:
         address.sin_port = htons(PORT);
     }
 
-    // bind socket
+    /**
+     * @brief Binds socket to the port specified in the constructor
+     */
     void bindSocket()
     {
         if ((bind(server_fd, (struct sockaddr *)&address, sizeof(address))) < 0)
@@ -92,7 +118,9 @@ public:
         }
     }
 
-    // starts listening on the port specified
+    /**
+     * @brief Makes the socket alive on the port specified
+     */
     void listenSocket()
     {
         if (listen(server_fd, 3) < 0)
@@ -102,7 +130,9 @@ public:
         }
     }
 
-    // accept new socket connections
+    /**
+     * @brief Accept new connections for this socket on the port specified
+     */
     void acceptNewSocket()
     {
         if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen)) < 0)
@@ -124,7 +154,6 @@ public:
 
     /**
      * @brief Starts up the server and stays alive forever until the program is then finally terminated
-     * 
      */
     void stayAlive()
     {
