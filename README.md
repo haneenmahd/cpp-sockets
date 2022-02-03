@@ -27,7 +27,7 @@ int main()
     socket.bindSocket(); // binds socket to the port
 
     socket.listenSocket(); // listens for socket on the port specified
-    socket.acceptNewSocket(); // accepts new connections
+    socket.acceptNewSocket(); // accepts new connections and returns the message for the current connection
 
     return 0;
 }
