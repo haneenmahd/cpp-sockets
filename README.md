@@ -35,7 +35,7 @@ int main()
 
 Example Client side
 ```cpp
-#include "SocketClient.h"
+#include "Socket.h"
 
 int main()
 {
