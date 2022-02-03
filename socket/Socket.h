@@ -18,6 +18,11 @@ typedef enum
     DEAD,
     UNINITIALIZED,
     INITIALISED
+} SocketState;
+
+typedef enum {
+    FAILED,
+    SUCCESS
 } SocketStatus;
 
 /**
@@ -38,7 +43,7 @@ private:
     std::string message;
 
 public:
-    SocketStatus status;
+    SocketState status;
 
     /**
      * @brief Construct a new Socket object
@@ -131,6 +136,27 @@ public:
     }
 
     /**
+     * @brief Retrieves the message from the client side socket
+     * @return std::string The message
+     */
+    std::string getMessage() {
+        valread = read(new_socket, (void*)buffer.c_str(), 1024);
+
+        return std::string(buffer);
+    }
+    
+    /**
+     * @brief Sends a message to the client
+     * The message will be the one used in the constructor parameters
+     * @return SocketStatus {FAILED, SUCCESS}
+     */
+    SocketStatus sendMessage() {
+        send(new_socket, message.c_str(), message.length(), 0);
+
+        return SUCCESS;
+    }
+
+    /**
      * @brief Accept new connections for this socket on the port specified
      */
     void acceptNewSocket()
@@ -143,13 +169,6 @@ public:
 
         // set socket status
         status = ALIVE;
-
-        valread = read(new_socket, (void *)buffer.c_str(), 1024);
-        std::cout << "Buffer recieved: " << buffer.c_str() << std::endl;
-
-        send(new_socket, message.c_str(), message.length(), 0);
-
-        std::cout << "Message Sent: " << &buffer << std::endl;
     }
 
     /**
