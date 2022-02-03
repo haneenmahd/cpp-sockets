@@ -8,5 +8,6 @@ int main()
 
     socket.setAddressConfiguration();
     socket.connectSocket();
+
     return 0;
 }

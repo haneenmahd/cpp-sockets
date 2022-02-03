@@ -11,9 +11,7 @@ int main()
     socket.setAddressConfiguration();
     socket.bindSocket();
     socket.listenSocket();
-    socket.acceptNewSocket();
-    std::cout << socket.getMessage() << std::endl;
-    socket.sendMessage();
+    std::cout << "Buffer from accept: " << socket.acceptNewSocket() << std::endl;
 
     return 0;
 }
