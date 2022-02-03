@@ -137,8 +137,9 @@ public:
 
     /**
      * @brief Accept new connections for this socket on the port specified
+     * @returns {std::string} Returns the message from the client
      */
-    void acceptNewSocket()
+    std::string acceptNewSocket()
     {
         if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen)) < 0)
         {
@@ -148,6 +149,12 @@ public:
 
         // set socket status
         status = ALIVE;
+
+        valread = read(new_socket, (void *)buffer.c_str(), 1024);
+
+        this->sendMessage();
+
+        return buffer.c_str();
     }
 
     /**
@@ -160,17 +167,6 @@ public:
         send(new_socket, message.c_str(), message.length(), 0);
 
         return SUCCESS;
-    }
-
-    /**
-     * @brief Retrieves the message from the client side socket
-     * @return std::string The message
-     */
-    std::string getMessage()
-    {
-        valread = read(server_fd, (void *)buffer.c_str(), 1024);
-
-        return buffer;
     }
 
     /**
