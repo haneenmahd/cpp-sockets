@@ -3,6 +3,9 @@
     "stdio.h": "c",
     "stdlib.h": "c",
     "in.h": "c",
-    "__config": "c"
+    "__config": "c",
+    "string": "cpp",
+    "iostream": "cpp",
+    "iosfwd": "cpp"
   }
 }
