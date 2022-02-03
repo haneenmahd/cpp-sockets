@@ -46,3 +46,35 @@ int main()
     return 0;
 }
 ```
+
+## Socket Functions 🥶
+- **`initSocket`**
+    - `returnValue`: is a void function, does not return anything
+    - `Functionality`: Initialises the socket using the `socket` function defined in `socket.h`
+- **`attachToPort`**
+    - `returnValue`: is a void function, does not return anything
+    - `Functionality`: Attaches the socket to port
+- **`setAddressConfiguration`**
+    - `returnValue`: is a void function, does not return anything
+    - `Functionality`: sets the address value structure of the socket, uses `sockaddr`
+- **`bindSocket`**
+    - `returnValue`: is a void function, does not return anything
+    - `Functionality`: Binds socket to the port
+- **`listenSocket`**
+    - `returnValue`: is a void function, does not return anything
+    - `Functionality`: listens on the port specifed
+- **`acceptNewSocket`**
+    - `returnValue`: returns a string
+    - `Functionality`: accepts new connections on the port and returns the message recieved in each connection.
+- **`sendMessage`**
+    - `returnValue`: typeof _SocketStatus_, a enum with cases FAILED = 0, SUCCESS = 1
+    - `Functionality`: sends the message specified in the constructor to the any available connections
+- **`stayAlive`**
+    - `returnValue`: is a void function, does not return anything
+    - `Functionality`: makes the socket alive forever, uses **acceptNewSocket**
+- **`connectSocket`**
+    - `returnValue`: is a void function, does not return anything
+    - `Functionality`: Connects the socket to the specified port
+
+## License
+`cpp-sockets` is an open-source project licensed under MIT.
