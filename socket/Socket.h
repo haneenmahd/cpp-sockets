@@ -167,7 +167,12 @@ public:
     }
 };
 
-// Object oriented implementation of Client-Side Socket
+/**
+     * @brief Construct a new Client Socket object
+     * Warning ⚠️: This does not initialize a socket, you need to do it manually by calling .initSocket() on your Socket object.
+     * @param _PORT port to host the client-side connection to the server, this port should be the one used in the server-side socket to make sure you are connecting to the right one.
+     * @param _message Message the server will recieve
+     */
 class SocketClient
 {
 private:
@@ -178,6 +183,12 @@ private:
     std::string message;
 
 public:
+    /**
+     * @brief Construct a new Client Socket object
+     * Warning ⚠️: This does not initialize a socket, you need to do it manually by calling .initSocket() on your Socket object.
+     * @param _PORT port to host the client-side connection to the server, this port should be the one used in the server-side socket to make sure you are connecting to the right one.
+     * @param _message Message the server will recieve
+     */
     SocketClient(int _PORT, std::string _message)
     {
         PORT = _PORT;
@@ -190,7 +201,9 @@ public:
         }
     }
 
-    // setup the address configuration structure
+    /**
+     * @brief Set the Address Configuration object
+     */
     void setAddressConfiguration()
     {
         serv_addr.sin_family = AF_INET;
@@ -202,7 +215,9 @@ public:
             exit(EXIT_FAILURE);
         }
     }
-    // connect
+    /**
+     * @brief Connects the socket to the port
+     */
     void connectSocket()
     {
         if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)))
