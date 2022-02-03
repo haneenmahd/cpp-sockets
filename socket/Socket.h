@@ -136,27 +136,6 @@ public:
     }
 
     /**
-     * @brief Retrieves the message from the client side socket
-     * @return std::string The message
-     */
-    std::string getMessage() {
-        valread = read(new_socket, (void*)buffer.c_str(), 1024);
-
-        return std::string(buffer);
-    }
-    
-    /**
-     * @brief Sends a message to the client
-     * The message will be the one used in the constructor parameters
-     * @return SocketStatus {FAILED, SUCCESS}
-     */
-    SocketStatus sendMessage() {
-        send(new_socket, message.c_str(), message.length(), 0);
-
-        return SUCCESS;
-    }
-
-    /**
      * @brief Accept new connections for this socket on the port specified
      */
     void acceptNewSocket()
@@ -169,6 +148,29 @@ public:
 
         // set socket status
         status = ALIVE;
+    }
+
+    /**
+     * @brief Sends a message to the client
+     * The message will be the one used in the constructor parameters
+     * @return SocketStatus {FAILED, SUCCESS}
+     */
+    SocketStatus sendMessage()
+    {
+        send(new_socket, message.c_str(), message.length(), 0);
+
+        return SUCCESS;
+    }
+
+    /**
+     * @brief Retrieves the message from the client side socket
+     * @return std::string The message
+     */
+    std::string getMessage()
+    {
+        valread = read(server_fd, (void *)buffer.c_str(), 1024);
+
+        return buffer;
     }
 
     /**
