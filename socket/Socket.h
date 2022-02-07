@@ -1,3 +1,14 @@
+/**
+ * @file Socket.h
+ * @author Haneen Mahdin (haneenmahdin@gmail.com)
+ * @brief Main Definition for OOP-implementation of Socket functions 
+ * @version 1.0
+ * @date 2022-02-07
+ * 
+ * @copyright Copyright (c) 2022 Haneen Mahdin
+ * 
+ */
+
 #include <iostream>
 #include <unistd.h>
 #include <sys/socket.h>
