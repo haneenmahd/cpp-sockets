@@ -6,6 +6,7 @@
     "__config": "c",
     "string": "cpp",
     "iostream": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "cassert": "cpp"
   }
 }
