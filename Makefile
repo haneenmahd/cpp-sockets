@@ -6,8 +6,8 @@ client:	client.out
 	./client.out
 
 build:
-	clang++ integrations/server.cpp -Isocket -o server.out
-	clang++ integrations/client.cpp -Isocket -o client.out
+	clang++ dev/server.cpp -Isocket -o server.out
+	clang++ dev/client.cpp -Isocket -o client.out
 
 test:
 	clang++ tests/*.test.cpp -Isocket -o test_main.out
