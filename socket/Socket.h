@@ -17,7 +17,7 @@
 #include <netdb.h>
 #include <string>
 
-/// Socket status is defined to debug any errors inside the socket, and it emits the status of the socket
+/// Socket state is defined to debug any errors inside the socket, and it emits the state of the socket
 ///  These are the defenitions of specific cases that will occur inisde socket status.
 ///  0 - ALIVE - The socket is live on a specific port, without any errors
 ///  1 - DEAD - The socket is killed or terminated by the process

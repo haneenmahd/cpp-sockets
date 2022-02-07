@@ -2,7 +2,7 @@
 Object Oriented Implementation of Unix Sockets
 
 # Installataion
-Download and move the `Socket.h` and `SocketClient.h` to your project's include directory.
+Download and move the `Socket.h` to your project's include directory.
 
 You are ready to go 🚀!
 
@@ -35,7 +35,7 @@ int main()
 
 Example Client side
 ```cpp
-#include "SocketClient.h"
+#include "Socket.h"
 
 int main()
 {
