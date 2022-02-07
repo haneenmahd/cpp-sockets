@@ -1,8 +1,9 @@
 #include <iostream>
-#include <cassert>
+#include "TestEssentials.h"
 
 int main()
 {
-    std::cout << "Tests" << std::endl;
+    expect_int("Test 1", 240, 2);
+    expect_int("Test 2", 20, 20);
     return 0;
 }
