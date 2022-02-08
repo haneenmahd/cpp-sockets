@@ -9,6 +9,8 @@
  * 
  */
 
+#define CPP_SOCKETS_H
+
 #include <iostream>
 #include <unistd.h>
 #include <sys/socket.h>
