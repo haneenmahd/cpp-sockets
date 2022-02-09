@@ -11,10 +11,10 @@ build:
 
 test:
 	clang++ tests/*.test.cpp -Isocket -Itests -o tests_main.out
-	./test_main.out
+	./tests_main.out
 
 run:
 	./server.out
 
 clean:
-	rm -rf *.out client server
+	rm -rf *.out client server *.o
