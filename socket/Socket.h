@@ -59,7 +59,7 @@ private:
     std::string message;
 
 public:
-    SocketState status;
+    SocketState state;
 
     /**
      * @brief Construct a new Socket object
@@ -77,7 +77,7 @@ public:
         addrlen = sizeof(address);
 
         // set deafault value
-        status = UNINITIALIZED;
+        state = UNINITIALIZED;
     };
 
     /**
@@ -96,7 +96,7 @@ public:
         }
 
         // set socket status
-        status = INITIALISED;
+        state = INITIALISED;
 
         return SUCCESS;
     }
@@ -172,7 +172,7 @@ public:
         }
 
         // set socket status
-        status = ALIVE;
+        state = ALIVE;
 
         valread = read(new_socket, (void *)buffer.c_str(), 1024);
 
@@ -204,7 +204,7 @@ public:
         }
 
         // set socket status
-        status = DEAD; // socket is always dead after the termination of the forever loop
+        state = DEAD; // socket is always dead after the termination of the forever loop
     }
 };
 
