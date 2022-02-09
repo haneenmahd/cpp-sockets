@@ -224,6 +224,8 @@ private:
     std::string message;
 
 public:
+    SocketState state;
+
     /**
      * @brief Construct a new Client Socket object
      * Warning ⚠️: This does not initialize a socket, you need to do it manually by calling .initSocket() on your Socket object.
@@ -234,12 +236,15 @@ public:
     {
         PORT = _PORT;
         message = _message;
+        state = UNINITIALIZED;
 
         if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         {
             printf("\n Client Side Socket creation failed. \n");
             exit(EXIT_FAILURE);
         }
+
+        state = INITIALISED;
     }
 
     /**
@@ -253,8 +258,13 @@ public:
         if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
         {
             printf("\nInvalid address || Address not supported \n");
+
+            state = DEAD;
+
             return FAILED;
         }
+
+        state = INITIALISED;
 
         return SUCCESS;
     }
@@ -266,10 +276,15 @@ public:
         if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)))
         {
             printf("\n Connection Failed \n");
+            
+            state = DEAD;
+
             return FAILED;
         }
 
         send(sock, message.c_str(), message.length(), 0);
+
+        state = ALIVE;
 
         printf("Message sent\n");
         valread = read(sock, (void *)buffer.c_str(), 1024);
