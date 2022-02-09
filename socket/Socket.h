@@ -87,31 +87,33 @@ public:
      * @param socketType The type of socket, most used: SOCK_STREAM, SOCK_DGRAM, SOCK_RAW
      * @return int 
      */
-    int initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM)
+    SocketStatus initSocket(int addressFamily = AF_INET, int socketType = SOCK_STREAM)
     {
         if ((server_fd = socket(addressFamily, socketType, 0)) == 0)
         {
             std::cout << "Failed to create socket, occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
-            return EXIT_FAILURE;
+            return FAILED;
         }
 
         // set socket status
         status = INITIALISED;
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
     }
 
     /**
      * @brief Attaches a socket to the port specified in the constructor
      * Uses SOL_SOCKET, SO_REUSEADDR
      */
-    void attachToPort()
+    SocketStatus attachToPort()
     {
         if ((setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))))
         {
             std::cout << "Failed to attach socket to port" << PORT << ", occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
-            exit(EXIT_FAILURE);
+            return FAILED;
         }
+
+        return SUCCESS;
     }
 
     /**
@@ -120,35 +122,41 @@ public:
      * @param addressFamily Address family that should be set to the sockaddr structure
      * @param sAddr ip address
      */
-    void setAddressConfiguration(int addressFamily = AF_INET, uint32_t sAddr = INADDR_ANY)
+    SocketStatus setAddressConfiguration(int addressFamily = AF_INET, uint32_t sAddr = INADDR_ANY)
     {
         address.sin_family = addressFamily;
         address.sin_addr.s_addr = sAddr;
         address.sin_port = htons(PORT);
+
+        return SUCCESS;
     }
 
     /**
      * @brief Binds socket to the port specified in the constructor
      */
-    void bindSocket()
+    SocketStatus bindSocket()
     {
         if ((bind(server_fd, (struct sockaddr *)&address, sizeof(address))) < 0)
         {
             printf("Failed to bind socket on port: %d, occured in file: %s, line: %d\n", PORT, __FILE__, __LINE__);
-            exit(EXIT_FAILURE);
+            return FAILED;
         }
+
+        return SUCCESS;
     }
 
     /**
      * @brief Makes the socket alive on the port specified
      */
-    void listenSocket()
+    SocketStatus listenSocket()
     {
         if (listen(server_fd, 3) < 0)
         {
             std::cout << "Failed to listen socket to port" << PORT << ", occured in file: " << __FILE__ << ", line: " << __LINE__ << std::endl;
-            exit(EXIT_FAILURE);
+            return FAILED;
         }
+
+        return SUCCESS;
     }
 
     /**
@@ -237,7 +245,7 @@ public:
     /**
      * @brief Set the Address Configuration object
      */
-    void setAddressConfiguration()
+    SocketStatus setAddressConfiguration()
     {
         serv_addr.sin_family = AF_INET;
         serv_addr.sin_port = htons(PORT);
@@ -245,18 +253,20 @@ public:
         if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
         {
             printf("\nInvalid address || Address not supported \n");
-            exit(EXIT_FAILURE);
+            return FAILED;
         }
+
+        return SUCCESS;
     }
     /**
      * @brief Connects the socket to the port
      */
-    void connectSocket()
+    SocketStatus connectSocket()
     {
         if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)))
         {
             printf("\n Connection Failed \n");
-            exit(EXIT_FAILURE);
+            return FAILED;
         }
 
         send(sock, message.c_str(), message.length(), 0);
@@ -264,5 +274,7 @@ public:
         printf("Message sent\n");
         valread = read(sock, (void *)buffer.c_str(), 1024);
         printf("%s\n", buffer.c_str());
+
+        return SUCCESS;
     }
 };
