@@ -49,19 +49,19 @@ int main()
 
 ## Socket Functions 🥶
 - **`initSocket`**
-    - `returnValue`: is a void function, does not return anything
+    - `returnValue`: returns typeof enum **SocketStatus**
     - `Functionality`: Initialises the socket using the `socket` function defined in `socket.h`
 - **`attachToPort`**
-    - `returnValue`: is a void function, does not return anything
+    - `returnValue`: returns typeof enum **SocketStatus**
     - `Functionality`: Attaches the socket to port
 - **`setAddressConfiguration`**
-    - `returnValue`: is a void function, does not return anything
+    - `returnValue`: returns typeof enum **SocketStatus**
     - `Functionality`: sets the address value structure of the socket, uses `sockaddr`
 - **`bindSocket`**
-    - `returnValue`: is a void function, does not return anything
+    - `returnValue`: returns typeof enum **SocketStatus**
     - `Functionality`: Binds socket to the port
 - **`listenSocket`**
-    - `returnValue`: is a void function, does not return anything
+    - `returnValue`: returns typeof enum **SocketStatus**
     - `Functionality`: listens on the port specifed
 - **`acceptNewSocket`**
     - `returnValue`: returns a string
@@ -70,10 +70,10 @@ int main()
     - `returnValue`: typeof _SocketStatus_, a enum with cases FAILED = 0, SUCCESS = 1
     - `Functionality`: sends the message specified in the constructor to the any available connections
 - **`stayAlive`**
-    - `returnValue`: is a void function, does not return anything
+    - `returnValue`: void, does not return
     - `Functionality`: makes the socket alive forever, uses **acceptNewSocket**
 - **`connectSocket`**
-    - `returnValue`: is a void function, does not return anything
+    - `returnValue`: returns typeof enum **SocketStatus**
     - `Functionality`: Connects the socket to the specified port
 
 ## License
