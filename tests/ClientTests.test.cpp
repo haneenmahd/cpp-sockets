@@ -1,13 +1,16 @@
 #include <iostream>
+#include "Socket.h"
 #include "TestEssentials.h"
 
 int main()
 {
-    expect_int("Test 1", 240, 2);
-    expect_int("Test 2", 20, 20);
-    expect_string("Test 3", "Hello", "Hell");
-    expect_bool("Test 4", true, false);
-    expect_float("Test 5", 4.3, 4.3222);
-    
+    SocketClient client(3000, "Test Client");
+
+    expect_int("Expect state to be initialised", client.state, 3);
+
+    client.setAddressConfiguration();
+
+    expect_int("Expect state to be initialised", client.state, 3);
+
     return 0;
 }
