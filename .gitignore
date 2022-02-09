@@ -3,3 +3,4 @@
 deps/
 *.app
 *.exe
+*.o
