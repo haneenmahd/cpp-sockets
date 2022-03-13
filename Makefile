@@ -6,11 +6,11 @@ client:	client.out
 	./client.out
 
 build:
-	clang++ dev/server.cpp -Isocket -o server.out
-	clang++ dev/client.cpp -Isocket -o client.out
+	clang++ dev/server.cpp -Iinclude -o server.out
+	clang++ dev/client.cpp -Iinclude -o client.out
 
 test:
-	clang++ tests/*.test.cpp -Isocket -Itests -o tests_main.out
+	clang++ tests/*.test.cpp -Iinclude -Itests -o tests_main.out
 	./tests_main.out
 
 run:
