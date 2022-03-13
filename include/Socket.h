@@ -18,28 +18,8 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <string>
-
-/// Socket state is defined to debug any errors inside the socket, and it emits the state of the socket
-///  These are the defenitions of specific cases that will occur inisde socket status.
-///  0 - ALIVE - The socket is live on a specific port, without any errors
-///  1 - DEAD - The socket is killed or terminated by the process
-///  2 - UNINITALISED - The socket is not initialized or attached or binded to a specific port
-///  3 - INITIALISED - The socket is attached or binded to a specific port
-typedef enum
-{
-    ALIVE,
-    DEAD,
-    UNINITIALIZED,
-    INITIALISED
-} SocketState;
-
-// Socket Status is used to understand return values from socket functions.
-// 0 - SUCCESS - process was successfull
-// 1 - FAILED - process was failed
-typedef enum {
-    SUCCESS,
-    FAILED
-} SocketStatus;
+#include  "SocketState.h"
+#include "SocketStatus.h"
 
 /**
      * @brief Construct a new Socket object
